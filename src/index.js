@@ -41,7 +41,7 @@ export const isUserInRoles = function (roleList, options) {
 };
 
 
-export const init() {
+// --- where to put this !?
 	Users.allow({
 		// doesn't allow insert or removal of users from untrusted code
 		update: function (userId, doc, fieldNames, modifier) {
@@ -62,4 +62,4 @@ export const init() {
 	Meteor.publish("current_user_data", function () {
 		return Meteor.users.find( { _id: this.userId }, { fields: {profile: 1 , roles: 1} } );
 	});
-}
+// ---
