@@ -51,15 +51,23 @@ if(Meteor.isServer) {
 		}
 	});
 
+	// Add roles array to user document
+	Users.before.insert(function(userId, doc) {
+		if(!doc.createdAt) doc.createdAt = new Date();
+		if(!doc.modifiedAt) doc.modifiedAt = doc.createdAt;
+		if(!doc.roles) doc.roles = [];
+	});
+
 	Meteor.publish("admin_user", function(_id){
 		return Users.isAdmin(this.userId) ? Users.find({_id: _id}) : this.ready();
 	});
 
 	Meteor.publish("admin_users", function() {
-		return Users.isAdmin(this.userId) ? Meteor.users.find({}, {fields: {profile: 1, roles: 1, emails: 1}}) : this.ready();
+		return Users.isAdmin(this.userId) ? Meteor.users.find({}, {fields: {profile: 1, roles: 1, emails: 1 }}) : this.ready();
 	});
 
 	Meteor.publish("current_user_data", function () {
-		return Meteor.users.find( { _id: this.userId }, { fields: {profile: 1 , roles: 1} } );
+		return Meteor.users.find( { _id: this.userId }, { fields: { profile: 1, roles: 1, emails: 1 } } );
 	});
+
 }
