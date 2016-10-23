@@ -58,16 +58,21 @@ if(Meteor.isServer) {
 		if(!doc.roles) doc.roles = [];
 	});
 
+	Users.before.update(function(userId, doc, fieldNames, modifier, options) {
+		modifier.$set = modifier.$set || {};
+		modifier.$set.modifiedAt = Date.now();
+	});
+
 	Meteor.publish("admin_user", function(_id){
 		return Users.isAdmin(this.userId) ? Users.find({_id: _id}) : this.ready();
 	});
 
 	Meteor.publish("admin_users", function() {
-		return Users.isAdmin(this.userId) ? Meteor.users.find({}, {fields: {profile: 1, roles: 1, emails: 1 }}) : this.ready();
+		return Users.isAdmin(this.userId) ? Meteor.users.find({}, { fields: { username: 1, profile: 1, private: 1, public: 1, roles: 1, emails: 1 }}) : this.ready();
 	});
 
 	Meteor.publish("current_user_data", function () {
-		return Meteor.users.find( { _id: this.userId }, { fields: { profile: 1, roles: 1, emails: 1 } } );
+		return Meteor.users.find( { _id: this.userId }, { fields: { username: 1, profile: 1, private: 1, public: 1, roles: 1, emails: 1 } } );
 	});
 
 }

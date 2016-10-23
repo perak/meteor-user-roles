@@ -1,6 +1,6 @@
 {
   "name": "meteor-user-roles",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "User roles for Meteor >= 1.3 + React",
   "repository": {
     "type": "git",

@@ -90,12 +90,12 @@ Only admins can update user roles via the client
 
 ## Global functions
 
-### isUserAdmin()
+### isAdmin()
 
 returns true if current user is admin
 
 ```javascript
-if(isAdmin()) {
+if(isUserAdmin()) {
 	// user is admin
 	...
 } else {
@@ -138,18 +138,24 @@ Data from user with given userId. Only user with "admin" role can subscribe. Com
 
 ### Meteor.subscribe("admin_users")
 
-Data from all users. Only user with role "admin" role can do subscribe. Following fields are exposed to admin:
+Data from all users. Only user with role "admin" role can subscribe. Following fields are exposed to admin:
 
+- username
 - profile
+- private
+- public
 - roles
 - emails
 
 
 ### Meteor.subscribe("current_user_data")
 
-Data from current user. Any user can do that (subscribe to own data). 
+Data from current user. Any user can subscribe to own data.
 
+- username
 - profile
+- private
+- public
 - roles
 - emails
 
