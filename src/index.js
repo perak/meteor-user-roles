@@ -11,7 +11,10 @@ Users.isInRoles = function (userId, roleList) {
 		return false;
 	}
 
-	var granted = new Set([...roleList].filter(x => user.roles.has(x)));
+//	var granted = new Set([...roleList].filter(x => user.roles.has(x)));
+	var granted = roleList.filter(function(value) { 
+		return user.roles.indexOf(value) > -1;
+	});
 
 	if(!granted || granted.length == 0) {
 		return false;
