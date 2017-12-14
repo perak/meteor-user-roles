@@ -138,14 +138,7 @@ Data from user with given userId. Only user with "admin" role can subscribe. Com
 
 ### Meteor.subscribe("admin_users")
 
-Data from all users. Only user with role "admin" role can subscribe. Following fields are exposed to admin:
-
-- username
-- profile
-- private
-- public
-- roles
-- emails
+Data from all users. Only user with role "admin" role can subscribe. Complete user document is exposed to admin.
 
 
 ### Meteor.subscribe("current_user_data")

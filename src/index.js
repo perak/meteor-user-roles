@@ -71,7 +71,7 @@ if(Meteor.isServer) {
 	});
 
 	Meteor.publish("admin_users", function() {
-		return Users.isAdmin(this.userId) ? Meteor.users.find({}, { fields: { username: 1, profile: 1, private: 1, public: 1, roles: 1, emails: 1 }}) : this.ready();
+		return Users.isAdmin(this.userId) ? Meteor.users.find({}) : this.ready();
 	});
 
 	Meteor.publish("current_user_data", function () {
