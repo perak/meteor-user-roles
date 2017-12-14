@@ -66,16 +66,34 @@ if(Meteor.isServer) {
 		modifier.$set.modifiedAt = Date.now();
 	});
 
-	Meteor.publish("admin_user", function(_id){
-		return Users.isAdmin(this.userId) ? Users.find({_id: _id}) : this.ready();
+	Meteor.publish("admin_user", function (_id) {
+		if(!Users.isAdmin(this.userId)) {
+			return this.ready();
+		}
+		var user = Meteor.users.find({ _id: _id });
+		if(Users.publishJoinedCursors) {
+			return Users.publishJoinedCursors(user);
+		}
+		return user;
 	});
 
-	Meteor.publish("admin_users", function() {
-		return Users.isAdmin(this.userId) ? Meteor.users.find({}) : this.ready();
+	Meteor.publish("admin_users", function () {
+		if(!Users.isAdmin(this.userId)) {
+			return this.ready();
+		}
+		var users = Meteor.users.find({});
+		if(Users.publishJoinedCursors) {
+			return Users.publishJoinedCursors(users);
+		}
+		return users;
 	});
 
 	Meteor.publish("current_user_data", function () {
-		return Meteor.users.find( { _id: this.userId }, { fields: { username: 1, profile: 1, private: 1, public: 1, roles: 1, emails: 1 } } );
+		var user = Meteor.users.find({ _id: this.userId }, { fields: { username: 1, profile: 1, private: 1, public: 1, roles: 1, emails: 1 } });
+		if(Users.publishJoinedCursors) {
+			return Users.publishJoinedCursors(user);
+		}
+		return user;
 	});
 
 }
