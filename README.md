@@ -138,7 +138,31 @@ Data from user with given userId. Only user with "admin" role can subscribe. Com
 
 ### Meteor.subscribe("admin_users")
 
-Data from all users. Only user with role "admin" role can subscribe. Complete user document is exposed to admin.
+Data from all users. Only user with "admin" role can subscribe. Complete user document is exposed to admin.
+
+
+### Meteor.subscribe("admin_users_paged", extraOptions)
+
+Data from all users, but depending on extraOptions, documents can be filtered, sorted and paged (used in applications generated with meteor-kitchen). Only user with "admin" role can subscribe. Complete user document is exposed to admin.
+
+`extraOptions` is object:
+
+```javascript
+{
+	searchText: "textToFind", // search string
+	searchFields: [ "fieldNameToSearch" ], // list of collection fields to search
+	sortBy: "fieldNameToSortBy", // sort by field
+	pageNo: 0, // page number (zero-based)
+	pageSize: 32, // number of documents per page. If this member is -1 then entire resultset is returned
+	doSkip: true, // if this member is "false" then only first page will be returned (pageNo is ignored)
+	noPaging: false // if this member value is "true" then pageNo and pageSize are ignored and entire resultset is returned
+}
+```
+
+
+### Meteor.subscribe("admin_users_paged_count", extraOptions)
+
+This subscription is using `tmeasday:publish-counts` Meteor (atmosphere) package to return total number of documents in filtered dataset. Used to calculate total number of pages. `extraOptions` argument is the same as described in `admin_users_paged` publication, but only `searchText` and `searchFields` members are used (other members are not required to calculate total number of records and are ignored).
 
 
 ### Meteor.subscribe("current_user_data")
