@@ -108,10 +108,41 @@ if(Meteor.isServer) {
 		let options = originalOptions;
 
 		if(!_.isEmpty(addOptions)) {
-			objectUtils.mergeObjects(options, addOptions);
+			_mergeObjects(options, addOptions);
 		}
 
 		return options;
+	};
+
+	let _mergeObjects = function(target, source) {
+
+		/* Merges two (or more) objects,
+		giving the last one precedence */
+
+		if(typeof target !== "object") {
+			target = {};
+		}
+
+		for(let property in source) {
+
+			if(source.hasOwnProperty(property)) {
+
+				let sourceProperty = source[ property ];
+
+				if(typeof sourceProperty === 'object') {
+					target[property] = _mergeObjects(target[property], sourceProperty);
+					continue;
+				}
+
+				target[property] = sourceProperty;
+			}
+		}
+
+		for(let a = 2, l = arguments.length; a < l; a++) {
+			_mergeObjects(target, arguments[a]);
+		}
+
+		return target;
 	};
 
 	Users.allow({
