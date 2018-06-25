@@ -152,6 +152,7 @@ Data from all users, but depending on extraOptions, documents can be filtered, s
 	searchText: "textToFind", // search string
 	searchFields: [ "fieldNameToSearch" ], // list of collection fields to search
 	sortBy: "fieldNameToSortBy", // sort by field
+	sortAscending: true, // sort direction
 	pageNo: 0, // page number (zero-based)
 	pageSize: 32, // number of documents per page. If this member is -1 then entire resultset is returned
 	doSkip: true, // if this member is "false" then only first page will be returned (pageNo is ignored)

@@ -94,7 +94,7 @@ if(Meteor.isServer) {
 		// sort
 		if(sortBy) {
 			addOptions.sort = {};
-			addOptions.sort[sortBy] = (typeof extraOptions.sortAscending == "undefined" || exraOptions.sortAscending) ? 1 : -1;
+			addOptions.sort[sortBy] = (typeof extraOptions.sortAscending == "undefined" || extraOptions.sortAscending) ? 1 : -1;
 		}
 
 		// skip & limit
