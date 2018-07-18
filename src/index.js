@@ -1,3 +1,5 @@
+import _ from "underscore";
+
 export const Users = Meteor.users;
 
 Users.isInRole = function (userId, role) {
